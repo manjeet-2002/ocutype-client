@@ -1,16 +1,22 @@
 *{
   background-color: rgb(36, 36, 36);
+  color:white;
+  font-family: sans-serif;
 }
 
 .main{
-  color:white;
+  margin-top:2em;
   display:flex;
   flex-direction: row;
-  font-family: sans-serif;
   justify-content: center;
   align-items: center;
 }
 
 .main h2{
   margin-left:2em;
+}
+
+.nodemcu{
+  text-align: center;
+  margin-top:5em;
 }
