@@ -2,19 +2,18 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import './App.css'; // Import CSS file for styling
 
-const ENDPOINT = 'https://ocutype.onrender.com';
+const ENDPOINT = 'localhost:3001';
 const socket = io.connect(ENDPOINT);
 
 const App = () => {
-  const [alphabet, setAlphabet] = useState('Ma');
-  const [suggestions, setSuggestions] = useState(["Man", "Make", "Mad"]);
+  const [alphabet, setAlphabet] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     socket.on('recieve', (data) => {
       setAlphabet(alphabet+data.alphabet);
       setSuggestions(data.suggestions);
     });
-    return () => socket.disconnect();
   }, [alphabet]);
 
   return (
