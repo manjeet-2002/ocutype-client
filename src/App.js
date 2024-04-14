@@ -11,7 +11,7 @@ const App = () => {
 
   useEffect(() => {
     socket.on('recieve', (data) => {
-      setAlphabet(data.alphabet);
+      setAlphabet(alphabet+data.alphabet);
       setSuggestions(data.suggestions);
     });
     return () => socket.disconnect();
