@@ -15,7 +15,7 @@ const App = () => {
       setSuggestions(data.suggestions);
     });
     return () => socket.disconnect();
-  }, []);
+  }, [alphabet]);
 
   return (
     <div className="container">
