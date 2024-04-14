@@ -1,34 +1,39 @@
-import {useEffect, useState} from "react";
-import io from "socket.io-client";
-import './App.css';
-const socket = io.connect("https://ocutype.onrender.com");
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+import './App.css'; // Import CSS file for styling
 
-function App() {
+const ENDPOINT = 'https://ocutype.onrender.com';
+const socket = io.connect(ENDPOINT);
 
-  const [msg,setMsg] = useState("");
-  const [count,setCount] = useState(0);
+const App = () => {
+  const [alphabet, setAlphabet] = useState('Ma');
+  const [suggestions, setSuggestions] = useState(["Man", "Make", "Mad"]);
 
-  useEffect(()=>{
-    console.log("useffect");
-    socket.on("recieve",(data)=>{
-      setMsg(msg+data.char);
+  useEffect(() => {
+    socket.on('recieve', (data) => {
+      setAlphabet(data.alphabet);
+      setSuggestions(data.suggestions);
     });
-    socket.on("nodemcu",(data)=>{
-      setCount(count+1);
-    })
-  },[msg, count]);
+    return () => socket.disconnect();
+  }, []);
 
   return (
-    <>
-      <div className="main">
-        <h1>Message :</h1>
-        <h2>{msg}</h2>
+    <div className="container">
+      <h1 className="title">OCUTYPE</h1>
+      <div className="content">
+        <p className="alphabet">{alphabet}</p>
+        <div className="suggestions">
+          <ul className="suggestions-list">
+            {suggestions.map((suggestion, index) => (
+              <li key={index} className="suggestion">
+                {suggestion}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-      <h2 className="nodemcu">
-        Number of blinks detected : {count}
-      </h2>
-    </>
+    </div>
   );
-}
+};
 
 export default App;
