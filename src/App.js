@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import "./App.css"; // Import CSS file for styling
 
-const ENDPOINT = "http://localhost:3001";
+const ENDPOINT = "https://ocutype.onrender.com/";
 const socket = io.connect(ENDPOINT);
 
 const App = () => {
