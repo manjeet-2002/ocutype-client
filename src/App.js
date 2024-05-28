@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
-import './App.css'; // Import CSS file for styling
+import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
+import "./App.css"; // Import CSS file for styling
 
-const ENDPOINT = 'https://ocutype.onrender.com/';
+const ENDPOINT = "http://localhost:3001";
 const socket = io.connect(ENDPOINT);
 
 const App = () => {
-  const [alphabet, setAlphabet] = useState("");
+  const [sentence, setSentence] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
-    socket.on('recieve', (data) => {
-      setAlphabet(alphabet+data.alphabet);
+    socket.on("recieve", (data) => {
+      setSentence(data.sentence);
       setSuggestions(data.suggestions);
     });
-  }, [alphabet]);
+  }, [sentence]);
 
   return (
     <div className="container">
       <h1 className="title">OCUTYPE</h1>
       <div className="content">
-        <p className="alphabet">{alphabet}</p>
+        <p className="alphabet">{sentence}</p>
         <div className="suggestions">
           <ul className="suggestions-list">
             {suggestions.map((suggestion, index) => (
